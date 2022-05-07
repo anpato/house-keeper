@@ -8,6 +8,9 @@ import store from '../../../store';
 import { SetUser } from '../../../store/actions/user.actions';
 
 export default NextAuth({
+  secret:
+    process.env.NEXTAUTH_SECRET ||
+    'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=',
   pages: {
     error: '/',
     signIn: '/'
