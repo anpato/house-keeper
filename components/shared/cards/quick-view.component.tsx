@@ -7,10 +7,15 @@ import {
   Typography,
   Stack,
   CardContent,
-  Skeleton
+  Skeleton,
+  Menu,
+  MenuItem,
+  Box,
+  ListItemIcon
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { LinkPreview } from '@dhaiwat10/react-link-preview';
+import { Delete, MoreHoriz } from '@mui/icons-material';
 
 type IProps = {
   title: string;
@@ -22,6 +27,9 @@ type IProps = {
   displayLink?: boolean;
   url?: string;
   disableCta?: boolean;
+  displayMenu?: boolean;
+  onDelete: (value: string) => Promise<void>;
+  value?: string;
 };
 
 const QuickView: FC<IProps> = ({
@@ -33,8 +41,14 @@ const QuickView: FC<IProps> = ({
   url,
   ctaLink,
   secondaryTitle,
-  disableCta
+  disableCta,
+  displayMenu,
+  onDelete,
+  value
 }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
   return (
     <Card variant="outlined" sx={{ minHeight: '100%' }}>
       <CardHeader
@@ -74,7 +88,32 @@ const QuickView: FC<IProps> = ({
       ) : null}
       <Divider />
       <CardActions>
-        <Button disabled={disableCta}>{cta}</Button>
+        <Stack flexGrow={1} direction="row" justifyContent="space-between">
+          <Button disabled={disableCta}>{cta}</Button>
+          {displayMenu ? (
+            <Box>
+              <Button
+                color="secondary"
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+              >
+                <MoreHoriz />
+              </Button>
+              <Menu
+                onClose={() => setAnchorEl(null)}
+                anchorEl={anchorEl}
+                open={open}
+                id={`${title}-menu`}
+              >
+                <MenuItem onClick={() => onDelete(value ?? '')}>
+                  <ListItemIcon>
+                    <Delete color="error" />
+                  </ListItemIcon>
+                  <Typography variant="inherit">Delete</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          ) : null}
+        </Stack>
       </CardActions>
     </Card>
   );

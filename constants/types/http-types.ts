@@ -28,3 +28,9 @@ export interface GetHomes extends NextApiRequest {
     user: string;
   };
 }
+
+export interface DeleteList extends NextApiRequest {
+  query: {
+    list: string;
+  };
+}

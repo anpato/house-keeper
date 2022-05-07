@@ -1,8 +1,15 @@
-import { Button, Card, Divider, Grid, Text } from '@nextui-org/react';
 import GoogleButton from 'react-google-button';
 import GithubButton from 'react-github-login-button';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import {
+  Grid,
+  Button,
+  Card,
+  CardHeader,
+  CardContent,
+  Divider
+} from '@mui/material';
 
 const LoginRedirect = (
   status: 'loading' | 'authenticated' | 'unauthenticated'
@@ -11,36 +18,38 @@ const LoginRedirect = (
   switch (status) {
     case 'authenticated':
       return (
-        <Grid.Container
-          justify="center"
+        <Grid
+          container
+          justifyContent="center"
           direction="column"
           alignItems="center"
           gap={2}
         >
-          <Grid>
+          <Grid item>
             <Button onClick={() => router.push('/dashboard')}>
               Go to dashboard
             </Button>
           </Grid>
-        </Grid.Container>
+        </Grid>
       );
       break;
 
     default:
       return (
-        <Grid.Container
-          justify="center"
+        <Grid
+          container
+          justifyContent="center"
           direction="column"
           alignItems="center"
           gap={2}
         >
-          <Grid>
+          <Grid item>
             <GithubButton onClick={() => signIn('github')} />
           </Grid>
-          <Grid>
+          <Grid item>
             <GoogleButton onClick={() => signIn('google')} />
           </Grid>
-        </Grid.Container>
+        </Grid>
       );
   }
 };
@@ -48,12 +57,10 @@ const LoginRedirect = (
 const Login = () => {
   const { status } = useSession();
   return (
-    <Card style={{ width: '50%', margin: 'auto' }} bordered>
-      <Card.Header>
-        <Text h3> Housekeeper</Text>
-      </Card.Header>
+    <Card style={{ width: '50%', margin: 'auto' }} variant="outlined">
+      <CardHeader title="Housekeeper" />
       <Divider />
-      <Card.Body>{LoginRedirect(status)}</Card.Body>
+      <CardContent>{LoginRedirect(status)}</CardContent>
     </Card>
   );
 };

@@ -15,9 +15,16 @@ import {
 } from '../../store/actions/ui.actions';
 
 const Dashboard = () => {
-  const { listDialogVisible, additionModalVisible, user } = useAppSelector(
-    (state) => ({ ...state.ui, user: state.session.id })
-  );
+  const {
+    listDialogVisible,
+    additionModalVisible,
+    user,
+    lists: currentLists
+  } = useAppSelector((state) => ({
+    ...state.ui,
+    user: state.session.id,
+    lists: state.listings.lists
+  }));
 
   const dispatch = useAppDispatch();
 
@@ -44,18 +51,17 @@ const Dashboard = () => {
   const openAddition = () => dispatch(ToggleAdditionModal(true));
 
   return (
-    <div>
+    <div style={{ padding: '1em 0' }}>
       <AdditionModal
         closeModal={closeAdditionModal}
         modalOpen={additionModalVisible}
       />
       <ListModal closeModal={closeListModal} listOpen={listDialogVisible} />
       <QuickActions
-        homeAdditionHidden={!lists.data?.length}
+        homeAdditionHidden={!currentLists?.length}
         toggleAddition={openAddition}
         toggleList={openListDialog}
       />
-
       <Lists />
       <RecentList />
     </div>

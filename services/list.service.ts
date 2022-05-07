@@ -18,6 +18,11 @@ class ListService {
     const res = await this.apiClient.get(ApiUrls.listNames(userId));
     return res.data;
   }
+
+  async deleteList(listId: string): Promise<{ listId: string }> {
+    const res = await this.apiClient.delete(ApiUrls.deleteList(listId));
+    return { listId };
+  }
 }
 
 export default new ListService();

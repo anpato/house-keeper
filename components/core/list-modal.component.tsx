@@ -12,6 +12,7 @@ import { useMutation } from 'react-query';
 import listService from '../../services/list.service';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { ClearListForm, SetListForm } from '../../store/actions/form.actions';
+import { AddList } from '../../store/actions/listings.actions';
 
 type IProps = {
   listOpen: boolean;
@@ -37,7 +38,9 @@ const ListModal: FC<IProps> = ({ listOpen, closeModal }) => {
     'CreateList',
     async () => await listService.createList(user, name),
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        console.log(data);
+        dispatch(AddList(data));
         cancelList();
       }
     }

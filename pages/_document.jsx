@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { CssBaseline } from '@nextui-org/react';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -23,7 +22,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
           {/* <meta name="viewport" content="initial-scale=1, width=device-width" /> */}
-          {CssBaseline.flush()}
         </Head>
         <body>
           <Main />

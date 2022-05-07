@@ -39,6 +39,25 @@ const ListingReducer = createReducer(iState, {
   ) => ({
     ...state,
     sharedLists: payload
+  }),
+  [ListingActionTypes.AddHome]: (state, { payload }: ReduxAction<Home>) => ({
+    ...state,
+    recentHomes: [payload, ...state.homes]
+  }),
+  [ListingActionTypes.AddList]: (
+    state,
+    { payload }: ReduxAction<HomeListWithCount>
+  ) => ({
+    ...state,
+    lists: [payload, ...state.lists]
+  }),
+  [ListingActionTypes.DeleteList]: (
+    state,
+    { payload }: ReduxAction<string>
+  ) => ({
+    ...state,
+    lists: state.lists.filter((list) => list.id !== payload),
+    recentHomes: state.recentHomes.filter((home) => home.listId === payload)
   })
 });
 

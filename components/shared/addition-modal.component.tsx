@@ -13,6 +13,7 @@ import { useMutation } from 'react-query';
 import HomeService from '../../services/home.service';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { ClearAdditionForm } from '../../store/actions/form.actions';
+import { AddHome } from '../../store/actions/listings.actions';
 import AdditionForm from './addition-form.component';
 import SlideUp from './transitions/slide-up.component';
 
@@ -31,8 +32,9 @@ const AdditionModal: FC<IProps> = ({ modalOpen, closeModal }) => {
     'POST/Add-Home',
     async () => await HomeService.createHome(additionForm, user),
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
         dispatch(ClearAdditionForm());
+        dispatch(AddHome(data));
         closeModal();
       }
     }
@@ -43,18 +45,23 @@ const AdditionModal: FC<IProps> = ({ modalOpen, closeModal }) => {
     await addHome.mutateAsync();
   };
 
+  const handleClose = () => {
+    dispatch(ClearAdditionForm());
+    closeModal();
+  };
+
   return (
     <Dialog
       fullScreen
       fullWidth
       open={modalOpen}
-      onClose={closeModal}
+      onClose={handleClose}
       TransitionComponent={SlideUp}
     >
       <form onSubmit={handleSubmit}>
         <AppBar sx={{ position: 'relative' }} color="secondary">
           <Toolbar>
-            <IconButton edge="end" onClick={closeModal} color="error">
+            <IconButton edge="end" onClick={handleClose} color="error">
               <Close />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">

@@ -17,7 +17,7 @@ const QuickActions: FC<IProps> = ({
     <SpeedDial
       ariaLabel="controls"
       icon={<Settings />}
-      sx={{ position: 'absolute', bottom: 16, right: 16 }}
+      sx={{ position: 'fixed', bottom: 16, right: 16 }}
     >
       <SpeedDialAction
         onClick={toggleList}

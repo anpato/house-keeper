@@ -141,7 +141,6 @@ const AdditionForm = () => {
                   }
                 })
           }
-          // value={listId}
           isOptionEqualToValue={(v) => v.id === listId}
           placeholder="Select a list"
           options={data && data.map((l) => ({ label: l.name, id: l.id }))}
@@ -149,8 +148,8 @@ const AdditionForm = () => {
             <TextField
               {...params}
               label="Choose a list"
-              // value={listId}
               required
+              value={listId}
             />
           )}
         />

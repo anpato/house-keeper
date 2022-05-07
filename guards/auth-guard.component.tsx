@@ -1,13 +1,13 @@
-import { Loading } from '@nextui-org/react';
+import { CircularProgress } from '@mui/material';
 import { CtxOrReq } from 'next-auth/client/_utils';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { FC, ReactNode } from 'react';
 import { useQuery } from 'react-query';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import Navbar from '../components/shared/navbar.component';
 import profileService from '../services/profile.service';
-import store, { useAppDispatch } from '../store';
+import { useAppDispatch } from '../store';
 import { SetUser } from '../store/actions/user.actions';
 
 type IProps = {
@@ -37,7 +37,7 @@ const AuthGuard: FC<IProps> = ({ children }) => {
   return (
     <main>
       <Navbar />
-      {isLoading ? <Loading /> : children}
+      {isLoading ? <CircularProgress /> : children}
     </main>
   );
 };

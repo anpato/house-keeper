@@ -14,4 +14,7 @@ export class ApiUrls {
   static homes(userId: string): string {
     return `/api/homes?user=${userId}`;
   }
+  static deleteList(listId: string): string {
+    return `/api/lists/remove?list=${listId}`;
+  }
 }

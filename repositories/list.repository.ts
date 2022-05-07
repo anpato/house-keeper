@@ -14,7 +14,18 @@ class ListRepository {
             homes: true
           }
         }
-      }
+      },
+      take: 4,
+      orderBy: [
+        {
+          homes: {
+            _count: 'desc'
+          }
+        },
+        {
+          createdAt: 'desc'
+        }
+      ]
     });
     return lists;
   }
@@ -26,7 +37,7 @@ class ListRepository {
         userId
       }
     });
-    return list;
+    return { ...list, _count: { homes: 0 } };
   }
 
   async getListNames(userId: string) {
@@ -40,6 +51,15 @@ class ListRepository {
       }
     });
     return lists;
+  }
+
+  async deleteList(listId: string) {
+    const list = await this.list.delete({
+      where: {
+        id: listId
+      }
+    });
+    return list;
   }
 }
 
