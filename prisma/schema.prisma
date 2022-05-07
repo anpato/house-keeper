@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    String @id() @default(uuid())
+  email String @unique()
+  name  String
+
+  Homes    Home[]
+  HomeList HomeList[]
+
+
+  SharedList SharedList[]
+
+  @@map("users")
+}
+
+model Home {
+  id                String    @id() @default(uuid())
+  link              String    @unique() @db.Text
+  address           String
+  price             String    @default("0")
+  attendedShowing   Boolean   @default(false)
+  wantsShowing      Boolean   @default(false)
+  needsWork         Boolean   @default(false)
+  workLevel         WorkLevel @default(None)
+  rating            Int       @default(0)
+  purchaseCandidate Boolean   @default(false)
+  extraInfo         String    @db.Text
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt()
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lists             HomeList? @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId            String?
+
+  @@map("homes")
+}
+
+model HomeList {
+  id          String       @id() @default(uuid())
+  name        String
+  userId      String
+  createdAt   DateTime     @default(now())
+  user        User         @relation(fields: [userId], references: [id])
+  homes       Home[]
+  sharedLists SharedList[]
+
+  @@map("home_list")
+}
+
+model SharedList {
+  id     String @id() @default(uuid())
+  userId String
+  listId String
+
+  list HomeList @relation(fields: [listId], references: [id])
+  user User?    @relation(fields: [userId], references: [id])
+}
+
+enum WorkLevel {
+  None
+  Minor
+  Medium
+  Major
+}
