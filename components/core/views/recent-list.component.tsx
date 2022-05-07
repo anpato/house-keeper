@@ -5,6 +5,7 @@ import QuickViewSection from '../../shared/sections/quick-view-section.component
 
 const RecentList = () => {
   const recents = useAppSelector((state) => state.listings.recentHomes);
+  const handleDelete = async () => {};
   return (
     <QuickViewSection
       title="Recently saved homes"
@@ -21,6 +22,7 @@ const RecentList = () => {
             cta="View Home"
             ctaLink=""
             url={h.link}
+            onDelete={handleDelete}
           />
         </Grid>
       ))}
