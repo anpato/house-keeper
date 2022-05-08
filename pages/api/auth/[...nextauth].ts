@@ -54,6 +54,10 @@ export default NextAuth({
     },
     redirect() {
       return '/dashboard';
+    },
+    async session({ session }) {
+      console.log(process.env.NEXTAUTH_URL);
+      return session;
     }
   }
 });
