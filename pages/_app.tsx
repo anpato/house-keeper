@@ -33,3 +33,9 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 }
 
 export default App;
+
+export const getServerSideProps = async () => {
+  const msg = await db?.$connect();
+  console.log(msg);
+  return { props: {} };
+};

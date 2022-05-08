@@ -1,5 +1,15 @@
 import { PrismaClient } from '@prisma/client';
 
-export const db = new PrismaClient({
-  log: ['error', 'info', 'query']
-});
+declare global {
+  // allow global `var` declarations
+  // eslint-disable-next-line no-var
+  var db: PrismaClient | undefined;
+}
+
+export const db =
+  global.db ||
+  new PrismaClient({
+    log: ['error', 'info', 'query']
+  });
+
+if (process.env.NODE_ENV !== 'production') global.db = db;
