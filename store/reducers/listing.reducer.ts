@@ -58,6 +58,13 @@ const ListingReducer = createReducer(iState, {
     ...state,
     lists: state.lists.filter((list) => list.id !== payload),
     recentHomes: state.recentHomes.filter((home) => home.listId === payload)
+  }),
+  [ListingActionTypes.DeleteHome]: (
+    state,
+    { payload }: ReduxAction<string>
+  ) => ({
+    ...state,
+    recentHomes: state.recentHomes.filter((home) => home.id !== payload)
   })
 });
 

@@ -17,3 +17,5 @@ export const AddHome = createAction<Home>(ListingActionTypes.AddHome);
 export const AddList = createAction<HomeList>(ListingActionTypes.AddList);
 
 export const DeleteList = createAction<string>(ListingActionTypes.DeleteList);
+
+export const DeleteHome = createAction<string>(ListingActionTypes.DeleteHome);

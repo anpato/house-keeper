@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@dhaiwat10/react-link-preview": "^1.14.0",
+    "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
+    "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.6.4",
@@ -26,6 +28,7 @@
     "react-dom": "18.1.0",
     "react-github-login-button": "^1.0.1",
     "react-google-button": "^0.7.2",
+    "react-hot-toast": "^2.2.0",
     "react-query": "^3.38.1",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",

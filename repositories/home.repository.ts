@@ -1,3 +1,4 @@
+import { Home } from '@prisma/client';
 import moment from 'moment';
 import { db } from '../db';
 import { AdditionForm } from '../store/types/addition-form.store';
@@ -33,6 +34,15 @@ class HomeRepository {
       }
     });
     return homes;
+  }
+
+  async deleteHome(homeId: string): Promise<Home> {
+    const home = await this.home.delete({
+      where: {
+        id: homeId
+      }
+    });
+    return home;
   }
 }
 

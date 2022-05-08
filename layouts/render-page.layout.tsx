@@ -3,15 +3,27 @@ import { FC, useEffect } from 'react';
 import AuthGuard from '../guards/auth-guard.component';
 import { useRouter } from 'next/router';
 import { CtxOrReq } from 'next-auth/client/_utils';
-import { useQuery } from 'react-query';
-import userRepository from '../repositories/user.repository';
+import { ThemeProvider } from '@mui/material';
+import { useAppSelector } from '../store';
+import { Theme } from '../constants/enums/theme.enum';
+import { darkTheme, lightTheme } from '../constants/themes';
 
 type IProps = {
   children: any;
 };
 
+const ThemeWrapper: FC<IProps> = ({ children }) => {
+  const theme = useAppSelector((state) => state.ui.theme);
+
+  return (
+    <ThemeProvider theme={theme === Theme.Light ? lightTheme : darkTheme}>
+      {children}
+    </ThemeProvider>
+  );
+};
+
 const RenderPage: FC<IProps> = ({ children }) => {
-  const { status, data: session } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +43,11 @@ const RenderPage: FC<IProps> = ({ children }) => {
 
   switch (status) {
     case 'authenticated':
-      return <AuthGuard>{children}</AuthGuard>;
+      return (
+        <ThemeWrapper>
+          <AuthGuard>{children}</AuthGuard>
+        </ThemeWrapper>
+      );
 
     default:
       return children;
@@ -40,7 +56,6 @@ const RenderPage: FC<IProps> = ({ children }) => {
 
 export async function getServerSideProps(ctx: CtxOrReq) {
   const session = await getSession(ctx);
-  console.log(session, 'hello');
   return {
     props: {}
   };

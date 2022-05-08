@@ -15,6 +15,11 @@ class HomeService {
     const res = await this.apiClient.get(ApiUrls.homes(userId));
     return res.data;
   }
+
+  async deleteHome(homeId: string): Promise<Home> {
+    const res = await this.apiClient.delete(ApiUrls.deleteHome(homeId));
+    return res.data;
+  }
 }
 
 export default new HomeService();

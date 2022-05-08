@@ -9,6 +9,7 @@ import {
   Button
 } from '@mui/material';
 import { FC, FormEvent } from 'react';
+import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import HomeService from '../../services/home.service';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -36,6 +37,7 @@ const AdditionModal: FC<IProps> = ({ modalOpen, closeModal }) => {
         dispatch(ClearAdditionForm());
         dispatch(AddHome(data));
         closeModal();
+        toast.success(`Added ${data.address}`);
       }
     }
   );

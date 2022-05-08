@@ -1,4 +1,5 @@
 export enum UiActions {
   ToggleAdditionModal = 'ToggleAdditionModal',
-  ToggleListModal = 'ToggleListModal'
+  ToggleListModal = 'ToggleListModal',
+  SetTheme = 'SetTheme'
 }

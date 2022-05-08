@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import store from '../store';
 import RenderPage from '../layouts/render-page.layout';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ThemeProvider } from '@mui/material';
-import { lightTheme } from '../constants/themes';
+import { CssBaseline } from '@mui/material';
+import { Toaster } from 'react-hot-toast';
 
 const client = new QueryClient({
   defaultOptions: {
@@ -20,13 +20,13 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <Provider store={store}>
       <QueryClientProvider client={client}>
-        <ThemeProvider theme={lightTheme}>
-          <SessionProvider session={session}>
-            <RenderPage>
-              <Component {...pageProps} />
-            </RenderPage>
-          </SessionProvider>
-        </ThemeProvider>
+        <SessionProvider session={session}>
+          <RenderPage>
+            <CssBaseline />
+            <Toaster position="top-right" />
+            <Component {...pageProps} />
+          </RenderPage>
+        </SessionProvider>
       </QueryClientProvider>
     </Provider>
   );

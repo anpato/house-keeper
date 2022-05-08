@@ -19,18 +19,20 @@ const Dashboard = () => {
     listDialogVisible,
     additionModalVisible,
     user,
-    lists: currentLists
+    lists: currentLists,
+    homeCount
   } = useAppSelector((state) => ({
     ...state.ui,
     user: state.session.id,
-    lists: state.listings.lists
+    lists: state.listings.lists,
+    homeCount: state.listings.recentHomes.length
   }));
 
   const dispatch = useAppDispatch();
 
   const [lists, homes] = useQueries([
     {
-      queryKey: 'GET/Lists',
+      queryKey: ['GET/Lists', homeCount],
       enabled: !!user,
       queryFn: async () => await ListService.getLists(user),
       onSuccess: (data: HomeList[]) => {

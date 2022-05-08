@@ -34,3 +34,9 @@ export interface DeleteList extends NextApiRequest {
     list: string;
   };
 }
+
+export interface DeleteHome extends NextApiRequest {
+  query: {
+    home: string;
+  };
+}

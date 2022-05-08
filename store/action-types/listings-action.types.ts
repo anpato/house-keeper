@@ -5,5 +5,6 @@ export enum ListingActionTypes {
   LoadSharedLists = 'SharedLists {LoadSharedLists}',
   AddHome = 'Homes {AddHome}',
   AddList = 'Listings {AddList}',
-  DeleteList = 'Listings {DeleteList}'
+  DeleteList = 'Listings {DeleteList}',
+  DeleteHome = 'Homes {DeleteHome}'
 }

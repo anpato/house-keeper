@@ -1,4 +1,6 @@
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import listService from '../../../services/list.service';
@@ -21,7 +23,12 @@ const Lists = () => {
   );
 
   const handleDelete = async (listId: string) => {
-    await deleteList.mutateAsync(listId);
+    const target = lists.find((l) => l.id === listId);
+    await toast.promise(deleteList.mutateAsync(listId), {
+      loading: <CircularProgress />,
+      success: `Deleted ${target?.name}`,
+      error: `Error deleting ${target?.name}`
+    });
   };
 
   return (
