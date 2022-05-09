@@ -1,16 +1,11 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth/next';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import { AuthProviders } from '../../../constants/enums/auth-providers.enum';
-import { User } from '../../../constants/models/user.model';
-import userRepository from '../../../repositories/user.repository';
-import store from '../../../store';
-import { SetUser } from '../../../store/actions/user.actions';
+import { db } from '../../../db';
 
 export default NextAuth({
-  adapter: PrismaAdapter(db as PrismaClient),
+  adapter: PrismaAdapter(db),
   secret:
     process.env.NEXTAUTH_SECRET ||
     'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=',
