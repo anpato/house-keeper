@@ -52,7 +52,7 @@ const QuickActions: FC<IProps> = ({
         onClick={toggleTheme}
         FabProps={fabProps}
         tooltipTitle="Change the theme"
-        icon={theme === Theme.Dark ? <DarkMode /> : <LightMode />}
+        icon={theme && theme === Theme.Dark ? <DarkMode /> : <LightMode />}
       />
       <SpeedDialAction
         onClick={toggleList}

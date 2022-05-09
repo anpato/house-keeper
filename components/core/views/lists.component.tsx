@@ -1,5 +1,4 @@
 import { CircularProgress, Grid } from '@mui/material';
-import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
@@ -47,7 +46,6 @@ const Lists = () => {
             cta="View List"
             ctaLink=""
             disableCta={!l._count.homes}
-            displayMenu
             onDelete={handleDelete}
             value={l.id}
           />

@@ -44,7 +44,6 @@ const RecentList = () => {
             cta="View Home"
             ctaLink=""
             url={h.link}
-            displayMenu
             value={h.id}
             onDelete={handleDelete}
           />

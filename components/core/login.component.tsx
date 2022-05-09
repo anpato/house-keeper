@@ -57,7 +57,7 @@ const LoginRedirect = (
 const Login = () => {
   const { status } = useSession();
   return (
-    <Card style={{ width: '50%', margin: 'auto' }} variant="outlined">
+    <Card style={{ minWidth: '50%', margin: 'auto' }} variant="outlined">
       <CardHeader title="Housekeeper" />
       <Divider />
       <CardContent>{LoginRedirect(status)}</CardContent>

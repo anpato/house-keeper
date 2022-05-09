@@ -1,3 +1,5 @@
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth/next';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
@@ -8,6 +10,7 @@ import store from '../../../store';
 import { SetUser } from '../../../store/actions/user.actions';
 
 export default NextAuth({
+  adapter: PrismaAdapter(db as PrismaClient),
   secret:
     process.env.NEXTAUTH_SECRET ||
     'LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=',
@@ -26,32 +29,6 @@ export default NextAuth({
     })
   ],
   callbacks: {
-    async signIn({ account, profile }) {
-      let accountPayload: Pick<User, 'email' | 'name'> | null;
-      switch (account.provider) {
-        case AuthProviders.Github:
-          accountPayload = {
-            email: profile.login as string,
-            name: profile.name as string
-          };
-          break;
-        case AuthProviders.Google:
-          accountPayload = {
-            email: profile.email as string,
-            name: profile.name as string
-          };
-          break;
-        default:
-          return false;
-      }
-
-      const data = await userRepository.createProfile(accountPayload);
-      store.dispatch(SetUser({ id: data.id, name: data.name }));
-      if (data) {
-        return true;
-      }
-      return false;
-    },
     redirect() {
       return '/dashboard';
     }

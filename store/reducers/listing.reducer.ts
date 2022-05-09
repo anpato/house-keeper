@@ -42,7 +42,7 @@ const ListingReducer = createReducer(iState, {
   }),
   [ListingActionTypes.AddHome]: (state, { payload }: ReduxAction<Home>) => ({
     ...state,
-    recentHomes: [payload, ...state.homes]
+    recentHomes: [payload, ...state.recentHomes]
   }),
   [ListingActionTypes.AddList]: (
     state,

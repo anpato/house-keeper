@@ -1,4 +1,3 @@
-import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { Provider } from 'react-redux';
@@ -6,8 +5,7 @@ import store from '../store';
 import RenderPage from '../layouts/render-page.layout';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { CssBaseline } from '@mui/material';
-import { Toaster } from 'react-hot-toast';
-
+import Head from 'next/head';
 const client = new QueryClient({
   defaultOptions: {
     queries: {
@@ -19,11 +17,14 @@ const client = new QueryClient({
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <Provider store={store}>
+      <Head>
+        <title>Housekeeper</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <QueryClientProvider client={client}>
         <SessionProvider session={session}>
           <RenderPage>
             <CssBaseline />
-            <Toaster position="top-right" />
             <Component {...pageProps} />
           </RenderPage>
         </SessionProvider>

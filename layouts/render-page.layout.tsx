@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material';
 import { useAppSelector } from '../store';
 import { Theme } from '../constants/enums/theme.enum';
 import { darkTheme, lightTheme } from '../constants/themes';
-
+import { Toaster } from 'react-hot-toast';
 type IProps = {
   children: any;
 };
@@ -45,7 +45,10 @@ const RenderPage: FC<IProps> = ({ children }) => {
     case 'authenticated':
       return (
         <ThemeWrapper>
-          <AuthGuard>{children}</AuthGuard>
+          <AuthGuard>
+            <Toaster position="top-right" />
+            {children}
+          </AuthGuard>
         </ThemeWrapper>
       );
 

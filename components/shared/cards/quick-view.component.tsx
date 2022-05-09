@@ -10,12 +10,11 @@ import {
   Skeleton,
   Menu,
   MenuItem,
-  Box,
   ListItemIcon
 } from '@mui/material';
 import { FC, useState } from 'react';
 import { LinkPreview } from '@dhaiwat10/react-link-preview';
-import { Delete, MoreHoriz } from '@mui/icons-material';
+import { Delete, MoreVert } from '@mui/icons-material';
 
 type IProps = {
   title: string;
@@ -27,7 +26,6 @@ type IProps = {
   displayLink?: boolean;
   url?: string;
   disableCta?: boolean;
-  displayMenu?: boolean;
   onDelete: (value: string) => Promise<void>;
   value?: string;
 };
@@ -42,7 +40,6 @@ const QuickView: FC<IProps> = ({
   ctaLink,
   secondaryTitle,
   disableCta,
-  displayMenu,
   onDelete,
   value
 }) => {
@@ -58,13 +55,35 @@ const QuickView: FC<IProps> = ({
             alignItems="center"
             justifyContent="space-between"
           >
-            <Typography>
-              {title} <br /> {secondaryTitle}
+            <Typography variant="h6">
+              {title} <br />{' '}
+              <Typography component="span">{secondaryTitle}</Typography>
             </Typography>
-            <Typography>
-              {subtitleLabel}: <br />
-              {new Date(subtitle).toDateString()}
-            </Typography>
+            <Stack direction="row">
+              <Typography>
+                {subtitleLabel}: <br />
+                {new Date(subtitle).toDateString()}
+              </Typography>
+              <Button
+                color="secondary"
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+              >
+                <MoreVert />
+              </Button>
+              <Menu
+                onClose={() => setAnchorEl(null)}
+                anchorEl={anchorEl}
+                open={open}
+                id={`${title}-menu`}
+              >
+                <MenuItem onClick={() => onDelete(value ?? '')}>
+                  <ListItemIcon>
+                    <Delete color="error" />
+                  </ListItemIcon>
+                  <Typography variant="inherit">Delete</Typography>
+                </MenuItem>
+              </Menu>
+            </Stack>
           </Stack>
         }
       />
@@ -72,7 +91,7 @@ const QuickView: FC<IProps> = ({
         <CardContent>
           <LinkPreview
             imageHeight={300}
-            url={url ?? ''}
+            url={(url && encodeURI(url)) ?? ''}
             fallback={
               <a href={url} target="_blank" rel="noopener noreferrer">
                 <Skeleton
@@ -90,29 +109,6 @@ const QuickView: FC<IProps> = ({
       <CardActions>
         <Stack flexGrow={1} direction="row" justifyContent="space-between">
           <Button disabled={disableCta}>{cta}</Button>
-          {displayMenu ? (
-            <Box>
-              <Button
-                color="secondary"
-                onClick={(e) => setAnchorEl(e.currentTarget)}
-              >
-                <MoreHoriz />
-              </Button>
-              <Menu
-                onClose={() => setAnchorEl(null)}
-                anchorEl={anchorEl}
-                open={open}
-                id={`${title}-menu`}
-              >
-                <MenuItem onClick={() => onDelete(value ?? '')}>
-                  <ListItemIcon>
-                    <Delete color="error" />
-                  </ListItemIcon>
-                  <Typography variant="inherit">Delete</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
-          ) : null}
         </Stack>
       </CardActions>
     </Card>
