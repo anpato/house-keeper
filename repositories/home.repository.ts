@@ -44,6 +44,28 @@ class HomeRepository {
     });
     return home;
   }
+
+  async getPaginatedHomes(listId: string, page: number, limit: number) {
+    const count = await this.home.count({
+      where: {
+        listId
+      }
+    });
+    const pages: number = Math.ceil(count / limit);
+
+    const homes = await this.home.findMany({
+      where: {
+        listId
+      },
+      orderBy: {
+        createdAt: 'desc'
+      },
+      skip: page === 1 ? 0 : page * limit,
+      take: limit
+    });
+
+    return { homes, page, pages };
+  }
 }
 
 export default new HomeRepository();

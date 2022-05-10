@@ -1,4 +1,6 @@
 import { CircularProgress, Grid } from '@mui/material';
+import { NextRouter } from 'next/router';
+import { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import homeService from '../../../services/home.service';
@@ -7,7 +9,11 @@ import { DeleteHome } from '../../../store/actions/listings.actions';
 import QuickView from '../../shared/cards/quick-view.component';
 import QuickViewSection from '../../shared/sections/quick-view-section.component';
 
-const RecentList = () => {
+type IProps = {
+  router: NextRouter;
+};
+
+const RecentList: FC<IProps> = ({ router }) => {
   const recents = useAppSelector((state) => state.listings.recentHomes);
   const dispatch = useAppDispatch();
   const deleteHome = useMutation(
@@ -42,7 +48,7 @@ const RecentList = () => {
             subtitle={h.createdAt}
             subtitleLabel="Added on"
             cta="View Home"
-            ctaLink=""
+            action={() => router.push(`/homes/${h.id}`)}
             url={h.link}
             value={h.id}
             onDelete={handleDelete}

@@ -61,6 +61,49 @@ class ListRepository {
     });
     return list;
   }
+
+  async getPaginatedList(userId: string, page: number, limit: number) {
+    const count = await this.list.count({
+      where: {
+        userId
+      }
+    });
+    const pages: number = page === 1 ? 0 : Math.ceil(count / limit);
+    const lists = await this.list.findMany({
+      where: {
+        userId
+      },
+      include: {
+        homes: true
+      },
+      take: limit,
+      skip: page === 1 ? 0 : page * limit,
+      orderBy: [
+        {
+          homes: {
+            _count: 'desc'
+          }
+        },
+        {
+          createdAt: 'desc'
+        }
+      ]
+    });
+    return { lists, page, pages };
+  }
+
+  async getList(listId: string) {
+    const list = await this.list.findUnique({
+      where: {
+        id: listId
+      },
+      include: {
+        homes: true
+      }
+    });
+
+    return list;
+  }
 }
 
 export default new ListRepository();

@@ -4,13 +4,15 @@ import FormReducer from './reducers/form.reducer';
 import ListingReducer from './reducers/listing.reducer';
 import uiReducer from './reducers/ui.reducer';
 import UserReducer from './reducers/user.reducer';
+import ViewListReducer from './reducers/view-list.reducer';
 
 const store = configureStore({
   reducer: {
     session: UserReducer,
     ui: uiReducer,
     forms: FormReducer,
-    listings: ListingReducer
+    listings: ListingReducer,
+    listDetails: ViewListReducer
   },
   devTools: true
 });

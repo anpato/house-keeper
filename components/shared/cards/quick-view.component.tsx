@@ -17,12 +17,12 @@ import { LinkPreview } from '@dhaiwat10/react-link-preview';
 import { Delete, MoreVert } from '@mui/icons-material';
 
 type IProps = {
+  action: () => void;
   title: string;
   secondaryTitle?: string;
   subtitle: string | Date;
   subtitleLabel: string;
   cta: string;
-  ctaLink: string;
   displayLink?: boolean;
   url?: string;
   disableCta?: boolean;
@@ -37,7 +37,7 @@ const QuickView: FC<IProps> = ({
   cta,
   displayLink,
   url,
-  ctaLink,
+  action,
   secondaryTitle,
   disableCta,
   onDelete,
@@ -108,7 +108,9 @@ const QuickView: FC<IProps> = ({
       <Divider />
       <CardActions>
         <Stack flexGrow={1} direction="row" justifyContent="space-between">
-          <Button disabled={disableCta}>{cta}</Button>
+          <Button disabled={disableCta} onClick={action}>
+            {cta}
+          </Button>
         </Stack>
       </CardActions>
     </Card>

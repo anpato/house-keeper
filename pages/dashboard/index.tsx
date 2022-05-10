@@ -1,4 +1,5 @@
 import { Home, HomeList } from '@prisma/client';
+import { useRouter } from 'next/router';
 import { useMutation, useQueries, useQuery } from 'react-query';
 import ListModal from '../../components/core/list-modal.component';
 import Lists from '../../components/core/views/lists.component';
@@ -29,7 +30,7 @@ const Dashboard = () => {
   }));
 
   const dispatch = useAppDispatch();
-
+  const router = useRouter();
   const [lists, homes] = useQueries([
     {
       queryKey: ['GET/Lists', homeCount],
@@ -64,8 +65,8 @@ const Dashboard = () => {
         toggleAddition={openAddition}
         toggleList={openListDialog}
       />
-      <Lists />
-      <RecentList />
+      <Lists router={router} />
+      <RecentList router={router} />
     </div>
   );
 };
