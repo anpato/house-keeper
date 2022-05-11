@@ -1,5 +1,6 @@
 import { HomeList } from '@prisma/client';
 import { ApiUrls } from '../constants/api-urls';
+import { LoadHomeList } from '../constants/models/home-list.model';
 import { ApiClient } from '../utils/api.client';
 
 class ListService {
@@ -22,6 +23,11 @@ class ListService {
   async deleteList(listId: string): Promise<{ listId: string }> {
     const res = await this.apiClient.delete(ApiUrls.deleteList(listId));
     return { listId };
+  }
+
+  async getList(listId: string): Promise<LoadHomeList> {
+    const res = await this.apiClient.get(ApiUrls.getList(listId));
+    return res.data;
   }
 }
 

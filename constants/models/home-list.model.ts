@@ -3,8 +3,9 @@ import { Home, HomeList as DbList } from '@prisma/client';
 export interface HomeList extends DbList {}
 
 export interface LoadHomeList {
-  list: HomeList;
+  list?: HomeList;
   homes: Home[];
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
+  pages?: number;
 }

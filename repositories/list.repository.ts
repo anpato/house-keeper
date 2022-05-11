@@ -93,12 +93,10 @@ class ListRepository {
   }
 
   async getList(listId: string) {
+    console.log(listId);
     const list = await this.list.findUnique({
       where: {
         id: listId
-      },
-      include: {
-        homes: true
       }
     });
 

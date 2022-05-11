@@ -45,7 +45,11 @@ class HomeRepository {
     return home;
   }
 
-  async getPaginatedHomes(listId: string, page: number, limit: number) {
+  async getPaginatedHomes(
+    listId: string,
+    page: number = 1,
+    limit: number = 10
+  ) {
     const count = await this.home.count({
       where: {
         listId

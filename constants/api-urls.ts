@@ -21,4 +21,16 @@ export class ApiUrls {
   static deleteHome(homeId: string): string {
     return `/api/homes?home=${homeId}`;
   }
+
+  static getList(listId: string, page: number = 1, limit: number = 10): string {
+    return `/api/lists/view/${listId}?page=${page}&limit=${limit}`;
+  }
+
+  static getPaginatedHomes(
+    listId: string,
+    page: number = 1,
+    limit: number = 10
+  ): string {
+    return `/api/homes/list/${listId}?page=${page}&limit=${limit}`;
+  }
 }

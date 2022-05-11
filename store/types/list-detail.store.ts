@@ -5,5 +5,6 @@ export interface ListStore {
   list: HomeList | null;
   page: number;
   limit: number;
+  pages: number;
   homes: Home[];
 }
