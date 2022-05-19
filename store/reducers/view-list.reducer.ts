@@ -1,4 +1,3 @@
-import { Home, HomeList } from '@prisma/client';
 import { createReducer } from '@reduxjs/toolkit';
 import { LoadHomeList } from '../../constants/models/home-list.model';
 import { ReduxAction } from '../../constants/types/reducer-action.type';
