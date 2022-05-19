@@ -7,7 +7,7 @@ const iState: ListStore = {
   list: null,
   homes: [],
   page: 1,
-  limit: 10,
+  limit: 5,
   pages: 0
 };
 
@@ -18,6 +18,10 @@ const ViewListReducer = createReducer(iState, {
   ) => ({
     ...state,
     ...payload
+  }),
+  [ViewListActions.ChangePage]: (state, { payload }: ReduxAction<number>) => ({
+    ...state,
+    page: payload
   })
 });
 

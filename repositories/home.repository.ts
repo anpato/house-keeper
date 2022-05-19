@@ -64,10 +64,9 @@ class HomeRepository {
       orderBy: {
         createdAt: 'desc'
       },
-      skip: page === 1 ? 0 : page * limit,
+      skip: page === 1 ? 0 : (page - 1) * limit,
       take: limit
     });
-
     return { homes, page, pages };
   }
 }

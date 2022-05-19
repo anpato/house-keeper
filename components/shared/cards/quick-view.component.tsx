@@ -92,6 +92,16 @@ const QuickView: FC<IProps> = ({
           <LinkPreview
             imageHeight={300}
             url={(url && encodeURI(url)) ?? ''}
+            customLoader={
+              <a href={url} target="_blank" rel="noopener noreferrer">
+                <Skeleton
+                  height={350}
+                  sx={{ flexGrow: 1, height: '400' }}
+                  animation={false}
+                  variant="rectangular"
+                />
+              </a>
+            }
             fallback={
               <a href={url} target="_blank" rel="noopener noreferrer">
                 <Skeleton

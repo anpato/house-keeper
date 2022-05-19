@@ -17,7 +17,7 @@ const handler = async (req: GetList, res: NextApiResponse) => {
 
   res.send({
     homes,
-    currentPage: currentPage || page,
+    page: currentPage || page,
     pages: pages || 0,
     limit: Number(limit)
   });

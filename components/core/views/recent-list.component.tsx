@@ -41,7 +41,7 @@ const RecentList: FC<IProps> = ({ router }) => {
       disableCta={recents.length < 4}
     >
       {recents.map((h) => (
-        <Grid key={h.id} sx={{ flexGrow: 1 }}>
+        <Grid item key={h.id} sx={{ flexGrow: 1 }}>
           <QuickView
             displayLink
             title={h.address}
