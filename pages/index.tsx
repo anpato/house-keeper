@@ -1,7 +1,5 @@
 import { Container, Grid, Paper } from '@mui/material';
-
 import type { NextPage } from 'next';
-
 import Login from '../components/core/login.component';
 
 const Home: NextPage = () => {

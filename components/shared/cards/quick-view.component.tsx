@@ -6,23 +6,21 @@ import {
   Divider,
   Typography,
   Stack,
-  CardContent,
-  Skeleton,
   Menu,
   MenuItem,
   ListItemIcon
 } from '@mui/material';
 import { FC, useState } from 'react';
-import { LinkPreview } from '@dhaiwat10/react-link-preview';
 import { Delete, MoreVert } from '@mui/icons-material';
+import LinkPreview from '../previews/link-preview.component';
 
 type IProps = {
+  action: () => void;
   title: string;
   secondaryTitle?: string;
   subtitle: string | Date;
   subtitleLabel: string;
   cta: string;
-  ctaLink: string;
   displayLink?: boolean;
   url?: string;
   disableCta?: boolean;
@@ -37,7 +35,7 @@ const QuickView: FC<IProps> = ({
   cta,
   displayLink,
   url,
-  ctaLink,
+  action,
   secondaryTitle,
   disableCta,
   onDelete,
@@ -87,28 +85,13 @@ const QuickView: FC<IProps> = ({
           </Stack>
         }
       />
-      {displayLink ? (
-        <CardContent>
-          <LinkPreview
-            imageHeight={300}
-            url={(url && encodeURI(url)) ?? ''}
-            fallback={
-              <a href={url} target="_blank" rel="noopener noreferrer">
-                <Skeleton
-                  height={350}
-                  sx={{ flexGrow: 1, height: '400' }}
-                  animation={false}
-                  variant="rectangular"
-                />
-              </a>
-            }
-          />
-        </CardContent>
-      ) : null}
+      {displayLink ? <LinkPreview url={url ?? ''} id={value || ''} /> : null}
       <Divider />
       <CardActions>
         <Stack flexGrow={1} direction="row" justifyContent="space-between">
-          <Button disabled={disableCta}>{cta}</Button>
+          <Button disabled={disableCta} onClick={action}>
+            {cta}
+          </Button>
         </Stack>
       </CardActions>
     </Card>

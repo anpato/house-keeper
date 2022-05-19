@@ -1,30 +1,33 @@
 import {
   Add,
+  ArrowBack,
   DarkMode,
+  Home,
   LightMode,
   PlaylistAdd,
   Settings
 } from '@mui/icons-material';
 import { FabProps, SpeedDial, SpeedDialAction } from '@mui/material';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { Theme } from '../../constants/enums/theme.enum';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { SetTheme } from '../../store/actions/ui.actions';
+import {
+  SetTheme,
+  ToggleAdditionModal,
+  ToggleListModal
+} from '../../store/actions/ui.actions';
 
 type IProps = {
-  toggleList: () => void;
-  toggleAddition: () => void;
   homeAdditionHidden: boolean;
 };
 
-const QuickActions: FC<IProps> = ({
-  toggleList,
-  toggleAddition,
-  homeAdditionHidden
-}) => {
+const QuickActions: FC<IProps> = ({ homeAdditionHidden }) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.ui.theme);
-
+  const router = useRouter();
+  const toggleList = () => dispatch(ToggleListModal(true));
+  const toggleAddition = () => dispatch(ToggleAdditionModal(true));
   const toggleTheme = () => {
     if (theme === Theme.Light) {
       localStorage.setItem('user-theme', Theme.Dark);
@@ -70,6 +73,15 @@ const QuickActions: FC<IProps> = ({
           icon={<Add />}
         />
       )}
+      {router.pathname !== '/dashboard' ? (
+        <SpeedDialAction
+          color="info"
+          onClick={() => router.push('/dashboard')}
+          tooltipTitle="Back to your dashboard"
+          FabProps={fabProps}
+          icon={<Home />}
+        />
+      ) : null}
     </SpeedDial>
   );
 };

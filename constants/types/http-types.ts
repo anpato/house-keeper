@@ -40,3 +40,11 @@ export interface DeleteHome extends NextApiRequest {
     home: string;
   };
 }
+
+export interface GetList extends NextApiRequest {
+  query: {
+    listId: string;
+    page: string;
+    limit: string;
+  };
+}

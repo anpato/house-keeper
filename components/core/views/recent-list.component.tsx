@@ -1,13 +1,19 @@
 import { CircularProgress, Grid } from '@mui/material';
+import { NextRouter } from 'next/router';
+import { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
 import homeService from '../../../services/home.service';
 import { useAppDispatch, useAppSelector } from '../../../store';
 import { DeleteHome } from '../../../store/actions/listings.actions';
-import QuickView from '../../shared/cards/quick-view.component';
+import HomeCard from '../../shared/cards/home-card.component';
 import QuickViewSection from '../../shared/sections/quick-view-section.component';
 
-const RecentList = () => {
+type IProps = {
+  router: NextRouter;
+};
+
+const RecentList: FC<IProps> = ({ router }) => {
   const recents = useAppSelector((state) => state.listings.recentHomes);
   const dispatch = useAppDispatch();
   const deleteHome = useMutation(
@@ -28,6 +34,7 @@ const RecentList = () => {
       error: `Error deleting ${target?.address}`
     });
   };
+
   return (
     <QuickViewSection
       title="Recently saved homes"
@@ -35,17 +42,12 @@ const RecentList = () => {
       disableCta={recents.length < 4}
     >
       {recents.map((h) => (
-        <Grid key={h.id} sx={{ flexGrow: 1 }}>
-          <QuickView
-            displayLink
+        <Grid item key={h.id} md={6} flexGrow={1}>
+          <HomeCard
             title={h.address}
             subtitle={h.createdAt}
-            subtitleLabel="Added on"
-            cta="View Home"
-            ctaLink=""
             url={h.link}
-            value={h.id}
-            onDelete={handleDelete}
+            id={h.id}
           />
         </Grid>
       ))}
