@@ -1,11 +1,14 @@
 import {
   Add,
+  ArrowBack,
   DarkMode,
+  Home,
   LightMode,
   PlaylistAdd,
   Settings
 } from '@mui/icons-material';
 import { FabProps, SpeedDial, SpeedDialAction } from '@mui/material';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { Theme } from '../../constants/enums/theme.enum';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -22,7 +25,7 @@ type IProps = {
 const QuickActions: FC<IProps> = ({ homeAdditionHidden }) => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector((state) => state.ui.theme);
-
+  const router = useRouter();
   const toggleList = () => dispatch(ToggleListModal(true));
   const toggleAddition = () => dispatch(ToggleAdditionModal(true));
   const toggleTheme = () => {
@@ -70,6 +73,15 @@ const QuickActions: FC<IProps> = ({ homeAdditionHidden }) => {
           icon={<Add />}
         />
       )}
+      {router.pathname !== '/dashboard' ? (
+        <SpeedDialAction
+          color="info"
+          onClick={() => router.push('/dashboard')}
+          tooltipTitle="Back to your dashboard"
+          FabProps={fabProps}
+          icon={<Home />}
+        />
+      ) : null}
     </SpeedDial>
   );
 };

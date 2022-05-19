@@ -9,7 +9,8 @@ import Head from 'next/head';
 const client = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      retry: false
     }
   }
 });

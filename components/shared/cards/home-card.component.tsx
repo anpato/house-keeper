@@ -1,68 +1,73 @@
-import { LinkPreview } from '@dhaiwat10/react-link-preview';
+import { Delete, MoreVert } from '@mui/icons-material';
 import {
   Card,
-  CardContent,
   CardHeader,
   Stack,
   Typography,
-  Skeleton,
   CardActions,
   Button,
-  CardMedia,
-  Divider
+  Divider,
+  IconButton,
+  Chip,
+  Menu,
+  MenuItem,
+  ListItemIcon
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import LinkPreview from '../previews/link-preview.component';
 
 type IProps = {
   title: string;
   subtitle: Date;
   url: string;
+  id: string;
 };
 
-const HomeCard: FC<IProps> = ({ title, subtitle, url }) => {
+const HomeCard: FC<IProps> = ({ title, subtitle, url, id }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
   return (
     <Card variant="outlined">
-      <CardMedia>
-        <LinkPreview
-          imageHeight={300}
-          url={encodeURI(url)}
-          customLoader={
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              <Skeleton
-                height={350}
-                sx={{ flexGrow: 1, height: '400' }}
-                variant="rectangular"
-              />
-            </a>
-          }
-          fallback={
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              <Skeleton
-                height={350}
-                sx={{ flexGrow: 1, height: '400' }}
-                animation={false}
-                variant="rectangular"
-              />
-            </a>
-          }
-        />
-      </CardMedia>
+      <Menu
+        onClose={() => setAnchorEl(null)}
+        anchorEl={anchorEl}
+        open={open}
+        id={`${title}-menu`}
+      >
+        <MenuItem>
+          <ListItemIcon>
+            <Delete color="error" />
+          </ListItemIcon>
+          <Typography variant="inherit">Delete</Typography>
+        </MenuItem>
+      </Menu>
+      <LinkPreview url={url} id={id} />
+
       <CardHeader
         title={
-          <Stack>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+          >
             <div>
               <Typography variant="h6">{title}</Typography>
-              <Typography>
-                {' '}
-                Added On: {new Date(subtitle).toDateString()}
-              </Typography>
+              <Chip
+                label={`Added On: 
+                ${new Date(subtitle).toDateString()}`}
+              />
             </div>
           </Stack>
         }
       />
       <Divider />
       <CardActions>
-        <Button variant="outlined">View Home</Button>
+        <Stack flexGrow={1} direction="row" justifyContent="space-between">
+          <Button variant="outlined">View Home</Button>
+          <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+            <MoreVert />
+          </IconButton>
+        </Stack>
       </CardActions>
     </Card>
   );

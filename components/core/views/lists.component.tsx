@@ -43,14 +43,14 @@ const Lists: FC<IProps> = ({ router }) => {
       disableCta={lists.length < 4}
     >
       {lists.map((l) => (
-        <Grid key={l.id} xs={6} item>
+        <Grid key={l.id} item flexGrow={1}>
           <QuickView
             title={l.name}
             secondaryTitle={`(${l?._count?.homes || 0} Homes)`}
             subtitle={l.createdAt}
             subtitleLabel="Created On"
             cta="View List"
-            action={() => router.push(`/lists/${l.id}`)}
+            action={() => router.push(`/lists/${l.id}?page=1`)}
             disableCta={!l._count.homes}
             onDelete={handleDelete}
             value={l.id}

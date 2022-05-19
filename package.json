@@ -4,13 +4,12 @@
   "private": true,
   "scripts": {
     "prebuild": "prisma migrate deploy",
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@dhaiwat10/react-link-preview": "^1.14.0",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.9.0",
     "@emotion/server": "^11.4.0",

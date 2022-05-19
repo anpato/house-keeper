@@ -1,21 +1,16 @@
 import {
-  Card,
-  CardHeader,
   CircularProgress,
   Container,
   Divider,
   Grid,
   Pagination,
-  Skeleton,
   Stack,
   Typography
 } from '@mui/material';
-import { Box } from '@mui/system';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useQueries, useQuery } from 'react-query';
+import { useQueries } from 'react-query';
 import HomeCard from '../../components/shared/cards/home-card.component';
-import QuickView from '../../components/shared/cards/quick-view.component';
 import CardLoader from '../../components/shared/loaders/card-loader.component';
 import { LoadHomeList } from '../../constants/models/home-list.model';
 import PaddedLayout from '../../layouts/padded.layout';
@@ -33,8 +28,6 @@ const ViewList = () => {
   const { list, homes, ...listDetails } = useAppSelector(
     (state) => state.listDetails
   );
-
-  console.log(router.query);
 
   const [listReq, homeReq] = useQueries([
     {
@@ -81,7 +74,7 @@ const ViewList = () => {
   const cardRenderer = () => {
     if (homeReq.isFetching || homeReq.isLoading) {
       return [...new Array(4)].map((_, i) => (
-        <Grid key={i} item xs={6} sm={6} md={6}>
+        <Grid key={i} item md={6} flexGrow={1}>
           <CardLoader />
         </Grid>
       ));
@@ -90,21 +83,11 @@ const ViewList = () => {
     return homes.map((home) => (
       <Grid item key={home.id} md={6} flexGrow={1}>
         <HomeCard
+          id={home.id}
           title={home.address}
           subtitle={home.createdAt}
           url={home.link}
         />
-        {/* <QuickView
-          displayLink
-          title={home.address}
-          subtitle={home.createdAt}
-          subtitleLabel="Added on"
-          cta="View Home"
-          action={() => router.push(`/homes/${home.id}`)}
-          url={home.link}
-          value={home.id}
-          // onDelete={handleDelete}
-        /> */}
       </Grid>
     ));
   };

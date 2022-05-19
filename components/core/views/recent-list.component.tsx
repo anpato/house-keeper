@@ -6,7 +6,7 @@ import { useMutation } from 'react-query';
 import homeService from '../../../services/home.service';
 import { useAppDispatch, useAppSelector } from '../../../store';
 import { DeleteHome } from '../../../store/actions/listings.actions';
-import QuickView from '../../shared/cards/quick-view.component';
+import HomeCard from '../../shared/cards/home-card.component';
 import QuickViewSection from '../../shared/sections/quick-view-section.component';
 
 type IProps = {
@@ -34,6 +34,7 @@ const RecentList: FC<IProps> = ({ router }) => {
       error: `Error deleting ${target?.address}`
     });
   };
+
   return (
     <QuickViewSection
       title="Recently saved homes"
@@ -41,17 +42,12 @@ const RecentList: FC<IProps> = ({ router }) => {
       disableCta={recents.length < 4}
     >
       {recents.map((h) => (
-        <Grid item key={h.id} sx={{ flexGrow: 1 }}>
-          <QuickView
-            displayLink
+        <Grid item key={h.id} md={6} flexGrow={1}>
+          <HomeCard
             title={h.address}
             subtitle={h.createdAt}
-            subtitleLabel="Added on"
-            cta="View Home"
-            action={() => router.push(`/homes/${h.id}`)}
             url={h.link}
-            value={h.id}
-            onDelete={handleDelete}
+            id={h.id}
           />
         </Grid>
       ))}

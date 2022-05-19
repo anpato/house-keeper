@@ -37,14 +37,10 @@ const QuickViewSection: FC<IProps> = ({
         </Stack>
         <Divider />
         <Grid
-          flexGrow={1}
-          flexDirection="row"
           container
-          gap={2}
-          columns={2}
-          sx={{
-            marginTop: '1em'
-          }}
+          paddingTop={2}
+          spacing={2}
+          sx={{ width: '100%', flexGrow: 1 }}
         >
           {children}
         </Grid>
