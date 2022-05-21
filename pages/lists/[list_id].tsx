@@ -3,6 +3,7 @@ import {
   Container,
   Divider,
   Grid,
+  LinearProgress,
   Pagination,
   Stack,
   Typography
@@ -89,7 +90,7 @@ const ViewList = () => {
   };
 
   if (listReq.isLoading) {
-    return <CircularProgress />;
+    return <LinearProgress />;
   }
 
   const cardRenderer = () => {
