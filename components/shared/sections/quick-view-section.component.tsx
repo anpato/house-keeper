@@ -11,7 +11,7 @@ import { FC, ReactElement } from 'react';
 type IProps = {
   children?: ReactElement | ReactElement[];
   title: string;
-  cta: string;
+  cta?: string;
   ctaAction?: () => void;
   disableCta?: boolean;
 };
@@ -33,7 +33,7 @@ const QuickViewSection: FC<IProps> = ({
           gap={2}
         >
           <Typography variant="h5">{title}</Typography>
-          <Button disabled={disableCta}>{cta}</Button>
+          {cta ? <Button disabled={disableCta}>{cta}</Button> : null}
         </Stack>
         <Divider />
         <Grid

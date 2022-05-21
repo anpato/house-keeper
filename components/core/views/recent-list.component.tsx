@@ -36,11 +36,7 @@ const RecentList: FC<IProps> = ({ router }) => {
   };
 
   return (
-    <QuickViewSection
-      title="Recently saved homes"
-      cta="View all recent homes"
-      disableCta={recents.length < 4}
-    >
+    <QuickViewSection title="Recently saved homes">
       {recents.map((h) => (
         <Grid item key={h.id} md={6} flexGrow={1}>
           <HomeCard
