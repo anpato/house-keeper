@@ -28,7 +28,7 @@ const HomeCard: FC<IProps> = ({ title, subtitle, url, id, handleDelete }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" sx={{ height: 586 }}>
       <Menu
         onClose={() => setAnchorEl(null)}
         anchorEl={anchorEl}

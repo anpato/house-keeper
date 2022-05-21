@@ -19,13 +19,17 @@ const LinkPreview: FC<IProps> = ({ url, id }) => {
   ) : (
     <CardMedia>
       <a
-        style={{ width: '100%', display: 'block' }}
-        href={data.hostname}
+        style={{ width: '100%', display: 'block', height: 425 }}
+        href={url}
         target="_blank"
         rel="noopener noreferrer"
       >
         {url.length ? (
-          <img src={data.image} alt="cover" style={{ width: '100%' }} />
+          <img
+            src={data.image}
+            alt="cover"
+            style={{ width: '100%', height: 'inherit' }}
+          />
         ) : (
           <Skeleton height={300} variant="rectangular" animation={false} />
         )}
