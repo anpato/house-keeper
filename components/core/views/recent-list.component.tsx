@@ -48,6 +48,7 @@ const RecentList: FC<IProps> = ({ router }) => {
             subtitle={h.createdAt}
             url={h.link}
             id={h.id}
+            handleDelete={() => handleDelete(h.id)}
           />
         </Grid>
       ))}

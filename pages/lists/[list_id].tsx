@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useQueries } from 'react-query';
+import { useMutation, useQueries } from 'react-query';
 import HomeCard from '../../components/shared/cards/home-card.component';
 import CardLoader from '../../components/shared/loaders/card-loader.component';
 import { LoadHomeList } from '../../constants/models/home-list.model';
@@ -21,6 +21,8 @@ import {
   ChangePage,
   LoadListDetails
 } from '../../store/actions/view-list.actions';
+import { toast } from 'react-hot-toast';
+import { DeleteHome } from '../../store/actions/listings.actions';
 
 const ViewList = () => {
   const router = useRouter();
@@ -61,6 +63,25 @@ const ViewList = () => {
     }
   ]);
 
+  const deleteHome = useMutation(
+    'DELETE/Home',
+    async (homeId: string) => homeService.deleteHome(homeId),
+    {
+      onSuccess: (data) => {
+        dispatch(DeleteHome(data.id));
+      }
+    }
+  );
+
+  const handleDelete = async (homeId: string) => {
+    const target = homes.find((h) => h.id === homeId);
+    await toast.promise(deleteHome.mutateAsync(homeId), {
+      loading: <CircularProgress />,
+      success: `Deleted ${target?.address}`,
+      error: `Error deleting ${target?.address}`
+    });
+  };
+
   const changePage = (page: number) => {
     router.pathname = window.location.pathname + `?page=${page}`;
     router.push(router.pathname);
@@ -87,6 +108,7 @@ const ViewList = () => {
           title={home.address}
           subtitle={home.createdAt}
           url={home.link}
+          handleDelete={() => handleDelete(home.id)}
         />
       </Grid>
     ));

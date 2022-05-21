@@ -34,8 +34,8 @@ const FormReducer = createReducer(iState, {
     }
   }),
   [FormActions.ClearAdditionForm]: (state) => ({
-    ...state
-    // additionForm: iState.additionForm
+    ...state,
+    additionForm: iState.additionForm
   }),
   [FormActions.SetListForm]: (state, { payload }: ReduxAction<string>) => ({
     ...state,

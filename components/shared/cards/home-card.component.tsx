@@ -21,9 +21,10 @@ type IProps = {
   subtitle: Date;
   url: string;
   id: string;
+  handleDelete: (value: any) => void;
 };
 
-const HomeCard: FC<IProps> = ({ title, subtitle, url, id }) => {
+const HomeCard: FC<IProps> = ({ title, subtitle, url, id, handleDelete }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   return (
@@ -34,7 +35,7 @@ const HomeCard: FC<IProps> = ({ title, subtitle, url, id }) => {
         open={open}
         id={`${title}-menu`}
       >
-        <MenuItem>
+        <MenuItem onClick={handleDelete}>
           <ListItemIcon>
             <Delete color="error" />
           </ListItemIcon>

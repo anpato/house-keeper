@@ -45,7 +45,7 @@ const RenderPage: FC<IProps> = ({ children }) => {
   const dispatch = useAppDispatch();
 
   const closeListModal = () => dispatch(ToggleListModal(false));
-  const closeAdditionModal = () => dispatch(ToggleAdditionModal(true));
+  const closeAdditionModal = () => dispatch(ToggleAdditionModal(false));
 
   useEffect(() => {
     switch (status) {

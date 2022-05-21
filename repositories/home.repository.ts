@@ -31,7 +31,8 @@ class HomeRepository {
       },
       orderBy: {
         rating: 'desc'
-      }
+      },
+      take: 4
     });
     return homes;
   }
