@@ -11,8 +11,8 @@ datasource db {
 }
 
 model User {
-  id            String     @id() @default(uuid())
-  email         String     @unique()
+  id            String     @id @default(uuid())
+  email         String     @unique
   name          String
   emailVerified DateTime?
   image         String?
@@ -20,8 +20,6 @@ model User {
   sessions      Session[]
   Homes         Home[]
   HomeList      HomeList[]
-
-
   SharedList SharedList[]
 
   @@map("users")
@@ -65,8 +63,8 @@ model Session {
 }
 
 model Home {
-  id                String    @id() @default(uuid())
-  link              String    @unique() @db.Text
+  id                String    @id @default(uuid())
+  link              String    @unique @db.Text
   address           String
   price             String    @default("0")
   attendedShowing   Boolean   @default(false)
@@ -88,7 +86,7 @@ model Home {
 }
 
 model HomeList {
-  id          String       @id() @default(uuid())
+  id          String       @id @default(uuid())
   name        String
   userId      String
   createdAt   DateTime     @default(now())
@@ -100,7 +98,7 @@ model HomeList {
 }
 
 model SharedList {
-  id     String @id() @default(uuid())
+  id     String @id @default(uuid())
   userId String
   listId String
 

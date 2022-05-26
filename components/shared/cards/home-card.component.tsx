@@ -1,4 +1,4 @@
-import { Delete, MoreVert } from '@mui/icons-material';
+import { Delete, Favorite, MoreVert } from '@mui/icons-material';
 import {
   Card,
   CardHeader,
@@ -35,6 +35,12 @@ const HomeCard: FC<IProps> = ({ title, subtitle, url, id, handleDelete }) => {
         open={open}
         id={`${title}-menu`}
       >
+        <MenuItem>
+          <ListItemIcon>
+            <Favorite color="primary" />
+          </ListItemIcon>
+          <Typography>Make this your home</Typography>
+        </MenuItem>
         <MenuItem onClick={handleDelete}>
           <ListItemIcon>
             <Delete color="error" />
